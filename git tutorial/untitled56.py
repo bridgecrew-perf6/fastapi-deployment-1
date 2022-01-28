@@ -7,90 +7,13 @@ Original file is located at
     https://colab.research.google.com/drive/17UHYwlZAehvNPmDkO9wr1T9s-p-zFkYG
 """
 
-#will automatically take care of all the subsequent pip installations being done
-!pip install colabcode
+pip install colabcode
 
 !pip install fastapi nest-asyncio pyngrok uvicorn
-
-!curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
-
-!ngrok authtoken 1ptZtAxdFMImNqv0NLaJu71LRSC_27V5bfp5RCWN2GRm9WzMt
 
 pip install pydantic
 
 pip install jinja2
-
-"""#Restaurant API"""
-
-import fastapi
-from fastapi import FastAPI
-import nest_asyncio
-from pyngrok import ngrok
-import uvicorn
-import jinja2
-import pydantic
-from pydantic import BaseModel
-from fastapi.templating import Jinja2Templates
-from typing import Optional
-
-app3=FastAPI()
-
-menu = [{'id':0, 'name': 'Plain Rice','price':100.50} ,
-{'id':1, 'name': 'Daal','price':80.00},
-{'id':2, 'name': 'Chicken','price':200.00, 'pieces_per_plate':4},
-{'id':3, 'name': 'Mutton','price':300.00, 'pieces_per_plate':4},
-{'id':4, 'name': 'Fish','price':150.00,'pieces_per_plate':4}
-]
-my_orders = []
-
-class Restaurant(BaseModel):
-  id: int
-  name: str
-  price: float
-  pieces_per_plate: Optional[int]=None
-
-# Home/welcome route
-@app3.get("/")
-def read_root():
-    return {"Name": "My Restaurant",
-            "What You Can do here": "View menu, add items, remove items from orders"
-    }
-# Get all items
-@app3.get("/restaurant")
-def get_menu():
-    return menu
-
-# Get my_orders
-@app3.get("/show_my_orders")
-def get_my_orders():
-    return my_orders
-
-# get an item
-@app3.get("/menu/{id}")
-def get_an_item(id: int):
-    item = id - 1
-    return menu[item]
-
-# add a new item
-@app3.post("/additem")
-def add_order(additem: Restaurant):
-    my_orders.append(additem.dict())
-    return my_orders[-1]
-
-# delete an order
-@app3.delete("/myorder/{id}")
-def delete_order(id: int):
-    for i in my_orders:
-        if i['id'] == id:
-            my_orders.remove(i)
-    return {"task": "deletion successful"}
-
-ngrok_tunnel=ngrok.connect(8000)
-print('Public URL:',ngrok_tunnel.public_url)
-nest_asyncio.apply()
-uvicorn.run(app3, port=8000)
-
-"""#Colabcode"""
 
 !pip install fastapi
 
