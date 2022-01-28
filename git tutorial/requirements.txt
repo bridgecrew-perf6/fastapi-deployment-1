@@ -1,6 +1,6 @@
 fastapi
 nest_asyncio
-pyngrokimport uvicorn
+pyngrok
 jinja2
 pydantic
 typing
