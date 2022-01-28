@@ -1,0 +1,8 @@
+fastapi
+nest_asyncio
+pyngrokimport uvicorn
+jinja2
+pydantic
+typing
+colabcode
+uvicorn
