@@ -7,15 +7,15 @@ Original file is located at
     https://colab.research.google.com/drive/17UHYwlZAehvNPmDkO9wr1T9s-p-zFkYG
 """
 
-pip install colabcode
+!pip install colabcode
 
-pip install fastapi nest-asyncio pyngrok uvicorn
+!pip install fastapi nest-asyncio pyngrok uvicorn
 
-pip install pydantic
+!pip install pydantic
 
-pip install jinja2
+!pip install jinja2
 
-pip install fastapi
+!pip install fastapi
 
 import fastapi
 from fastapi import FastAPI
